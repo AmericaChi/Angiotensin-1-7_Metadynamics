@@ -1,7 +1,8 @@
 # Angiotensin-1-7_Metadynamics
-# Metadynamics of Angiotensin-(1-7) vasoactive peptide in order to explor ist conformational landscape in solution
-# Colective variables are a kind of HBs and gyration radius.
 # Author: L. América Chi
+
+This simulations generates a Metadynamics simulation of Angiotensin-(1-7) vasoactive peptide in order to explor ist conformational landscape in solution at neutral pH. Colective variables are a kind of HBs and gyration radius.
+
 # If useful for your project Please cite: BioRxiv doi: https://doi.org/10.1101/2022.05.23.493150.
 
 
