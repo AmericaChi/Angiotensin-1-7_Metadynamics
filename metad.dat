@@ -1,0 +1,42 @@
+RESTART #append output files of several restarts
+WHOLEMOLECULES ENTITY0=1-85 
+
+#groups
+ang_noh: GROUP NDX_FILE=index_meta2.ndx NDX_GROUP=ang_noh
+waters_noh: GROUP NDX_FILE=index_meta2.ndx NDX_GROUP=ang_noh
+donors: GROUP NDX_FILE=index_meta2.ndx NDX_GROUP=donors
+acceptors: GROUP NDX_FILE=index_meta2.ndx NDX_GROUP=acceptors
+#gyration radius
+GYRATION TYPE=RADIUS ATOMS=1-85 LABEL=rg
+
+#walls
+uw: UPPER_WALLS ARG=rg KAPPA=10000 AT=0.85
+lw: LOWER_WALLS ARG=rg KAPPA=10000 AT=0.5
+
+
+# Coordination number
+c: COORDINATION GROUPA=ang_noh GROUPB=waters_noh R_0=0.35
+hbs: COORDINATION GROUPA=donors GROUPB=acceptors R_0=0.25
+
+# Metadynamics
+METAD ...
+ARG=rg,hbs
+GRID_MIN=0,0
+GRID_MAX=1,56
+SIGMA=0.1,0.1
+HEIGHT=1.2
+PACE=500
+BIASFACTOR=15
+TEMP=300.
+LABEL=metad
+CALC_RCT
+... METAD
+
+
+PRINT ARG=rg FILE=rg.dat STRIDE=500
+PRINT ARG=metad.* FILE=metad_data.dat STRIDE=500
+PRINT ARG=c FILE=all_coordination_45.dat STRIDE=500
+PRINT ARG=hbs FILE=all_coordination_25.dat STRIDE=500
+PRINT ARG=rg,hbs,metad.bias FILE=COLVAR STRIDE=500
+PRINT ARG=lw.*,uw.* FILE=restraint.dat STRIDE=500
+FLUSH STRIDE=500
