@@ -1,3 +1,4 @@
+# RESTART append output files of several restarts
 WHOLEMOLECULES ENTITY0=1-85 
 
 #groups
